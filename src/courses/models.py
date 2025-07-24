@@ -14,21 +14,37 @@ Status:
     Coming Soon
     Draft
 """
+
+class PublishStatus(models.TextChoices):
+    PUBLISHED = 'pub', 'Published'
+    DRAFT = 'draft', 'Draft'
+    COMING_SOON = 'soon', 'Coming Soon'
+
+
+class AccessRequirement(models.TextChoices):
+    ANYONE = 'any', 'Anyone'
+    EMAIL_REQUIRED = 'email_required', 'Email Required'
+
+
 class Course(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
+    title = models.CharField(max_length=120)
+    description = models.TextField(blank=True, null=True)
     thumbnail = models.ImageField(upload_to='course_thumbnails/')
-    access = models.CharField(max_length=50, choices=[
-        ('anyone', 'Anyone'),
-        ('email_required', 'Email Re quired'),
-        ('purchase_required', 'Purchase Required'),
-        ('user_required', 'User Required')
-    ])
-    status = models.CharField(max_length=50, choices=[
-        ('published', 'Published'),
-        ('coming_soon', 'Coming Soon'),
-        ('draft', 'Draft')
-    ])
+    
+    access = models.CharField(
+        max_length=10,
+        choices=AccessRequirement.choices,
+        default=AccessRequirement.ANYONE
+    )
+    status = models.CharField(
+        max_length=10, 
+        choices=PublishStatus.choices, 
+        default=PublishStatus.DRAFT
+    )
+
+    @property
+    def is_published(self):
+        return self.status == PublishStatus.PUBLISHED
 
     def __str__(self):
         return self.title
