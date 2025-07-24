@@ -23,7 +23,7 @@ class PublishStatus(models.TextChoices):
 
 class AccessRequirement(models.TextChoices):
     ANYONE = 'any', 'Anyone'
-    EMAIL_REQUIRED = 'email_required', 'Email Required'
+    EMAIL_REQUIRED = 'email', 'Email Required'
 
 def handle_upload(instance, filename):
     return f"{filename}"
@@ -38,7 +38,7 @@ class Course(models.Model):
     access = models.CharField(
         max_length=10,
         choices=AccessRequirement.choices,
-        default=AccessRequirement.ANYONE
+        default=AccessRequirement.EMAIL_REQUIRED
     )
     status = models.CharField(
         max_length=10, 
