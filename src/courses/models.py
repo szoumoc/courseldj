@@ -58,7 +58,40 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+    
 
+    @property
+    def image_admin(self):
+        if not self.image:
+            return ""
+        image_options = {
+            'width': 200,
+        }
+
+        url = self.image.build_url(**image_options)
+        return url
+    
+
+    def get_image_thumbnail(self, as_html=False, width=500):
+        if not self.image:
+            return ""
+        image_options = {
+            'width': width,
+        }
+        if as_html:
+            return self.image.image(**image_options)
+        url = self.image.build_url(**image_options)
+        return url
+    def get_image_detail(self, as_html=False, width=750):
+        if not self.image:
+            return ""
+        image_options = {
+            'width': width,
+        }
+        if as_html:
+            return self.image.image(**image_options)
+        url = self.image.build_url(**image_options)
+        return url
 
 """
 Lessons
