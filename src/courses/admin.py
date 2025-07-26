@@ -9,7 +9,7 @@ from .models import Course, Lessons
 
 class LessonInline(admin.StackedInline):
     model = Lessons
-    readonly_fields = ['updated']
+    readonly_fields = ['public_id','updated']
     extra = 0
 
 @admin.register(Course)
@@ -17,8 +17,8 @@ class CourseAdmin(admin.ModelAdmin):
     inlines = [LessonInline]
     list_display = ['title', 'status', 'access']
     list_filter = ['status', 'access']
-    fields = ['title', 'description', 'status', 'image', 'access', 'display_image']
-    readonly_fields = ['display_image']
+    fields = ['public_id','title', 'description', 'status', 'image', 'access', 'display_image']
+    readonly_fields = ['public_id','display_image']
 
     def display_image(self, obj):
         url = obj.image_admin
