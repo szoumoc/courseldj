@@ -120,37 +120,6 @@ class Course(models.Model):
     def path(self):
         return f"/courses/{self.public_id}"
     
-
-    @property
-    def image_admin(self):
-        return helpers.get_cloudinary_image_object(
-            self, 
-            field_name="image",
-            as_html=False,
-            width= 200
-            )
-
-        url = self.image.build_url(**image_options)
-        return url
-    
-
-    def get_image_thumbnail(self, as_html=False, width=500):
-        return helpers.get_cloudinary_image_object(
-            self, 
-            field_name="image",
-            as_html=as_html,
-            width= width
-            )
-    
-
-    def get_image_detail(self, as_html=False, width=750):
-        return helpers.get_cloudinary_image_object(
-            self, 
-            field_name="image",
-            as_html=as_html,
-            width=width
-            )
-
 """
 Lessons
     Title
@@ -169,7 +138,8 @@ class Lessons(models.Model):
                                 public_id_prefix = get_public_id_prefix,
                                 display_name = get_display_name,
                                 tags = ['thumbnail', 'lesson'])
-    video = CloudinaryField("video", blank=True, null=True, 
+    video = CloudinaryField("video", blank=True, null=True,
+                            type = 'private', 
                             resource_type='video',
                             public_id_prefix = get_public_id_prefix,
                             display_name = get_display_name,
