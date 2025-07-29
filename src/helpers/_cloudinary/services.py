@@ -66,7 +66,7 @@ def get_cloudinary_video_object(instance,
             tmpl = get_template(template_name)
             cloud_name = settings.CLOUDINARY_CLOUD_NAME
             _html = tmpl.render({'video_url':url,'cloud_name':
-                                 cloud_name})
+                                 cloud_name, 'base_color': "#007cae"})
             return _html
 
         return url
