@@ -180,3 +180,7 @@ class Lessons(models.Model):
         if course_path.endswith("/"):
             course_path = course_path[:-1]
         return f"{course_path}/lessons/{self.public_id}"
+    
+    @property
+    def is_coming_soon(self):
+        return self.status == PublishStatus.COMING_SOON

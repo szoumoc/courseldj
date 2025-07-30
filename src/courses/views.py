@@ -18,7 +18,7 @@ def course_detail_view(request,course_id=None,*args, **kwargs):
     print(course_obj)
     if course_obj is None:
        raise Http404
-    lessons_queryset = course_obj.lessons_set.all()
+    lessons_queryset = services.get_course_lessons(course_obj)
     context = {
         "object" : course_obj,
         "lessons_queryset" : lessons_queryset,
