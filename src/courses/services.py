@@ -4,7 +4,7 @@ from .models import Course,Lessons, PublishStatus
 
 def get_publish_courses():
     return Course.objects.filter(status = PublishStatus.
-                                 PUBLISHED)
+                                 DRAFT)
 
 
 def get_course_detail(course_id=None):
@@ -13,7 +13,7 @@ def get_course_detail(course_id=None):
     obj = None
     try:
         obj = Course.objects.get(
-            status = PublishStatus.PUBLISHED,
+            status = PublishStatus.DRAFT,
             public_id = course_id
         )
     except:
@@ -26,10 +26,10 @@ def get_lesson_detail(course_id = None,lesson_id = None):
     obj = None
     try:
         obj = Lessons.objects.get(
-            course__id=course_id,
+            course__public_id=course_id,
             course__status = PublishStatus.PUBLISHED,
             status = PublishStatus.PUBLISHED,
-            id = lesson_id
+            public_id = lesson_id
         )
     except Exception as e:
         print("lesson detail", e)
