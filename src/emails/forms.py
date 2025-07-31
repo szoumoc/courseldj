@@ -4,7 +4,7 @@ from . import css
 from .models import Email, EmailVerficationEvent
 
 
-class EmailForm(forms.ModelForm):
+class EmailForm(forms.Form):
     email = forms.EmailField(
         widget = forms.EmailInput(
             attrs={
@@ -16,6 +16,15 @@ class EmailForm(forms.ModelForm):
 
     )
 
-    class Meta:
-        model = EmailVerficationEvent
-        fields = ['email']
+    # class Meta:
+    #     model = EmailVerficationEvent
+    #     fields = ['email']
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        qs = Email.objects.filter(email=email,
+                                  active = False)
+        if qs.exists():
+            raise forms.ValidationError("Inactive email!")
+        
+        return email
