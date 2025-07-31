@@ -5,5 +5,13 @@
 {% endblock head_title %}
 {% block content%}
     <h1> hello world from home</h1>
-        {{ block.super }}
+    <div>
+        <form method = "POST" action=".">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">login</button>
+        </form>
+
+
+    </div>
 {% endblock content%}
