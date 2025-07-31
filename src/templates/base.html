@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>\
+   
     <title>{% block head_title %}hello world from course
         {% endblock head_title %}
     </title>
@@ -15,6 +16,6 @@
     </h1>
 
     {% endblock content %}
-
+    {% include 'base/js.html' %}
   </body>
 </html>

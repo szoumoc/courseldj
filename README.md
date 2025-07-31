@@ -20,8 +20,10 @@ Lessons
     Description
     Video
     Status: Published, Coming Soon, Draft
-Email verification for short-lived access
 
+
+Email verification for short-lived access
+$$
     Views:
         Collect user email
         Verify user email
@@ -29,3 +31,4 @@ Email verification for short-lived access
     Models:
         Email
         EmailVerificationToken
+$$

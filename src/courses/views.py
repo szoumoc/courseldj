@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404, JsonResponse
 from . import services
+import helpers
 
 
 def course_list_view(request):
@@ -31,7 +32,27 @@ def course_detail_view(request,course_id=None,*args, **kwargs):
 def lesson_detail_view(request, lesson_id=None,course_id=None,*args, **kwargs):
     print(course_id,lesson_id)
     lesson_obj = services.get_lesson_detail(course_id=course_id,lesson_id=lesson_id)
+    
     if lesson_obj is None:
         raise Http404
-    return JsonResponse({"data":lesson_obj.id})
-    return render(request, "courses/detail.html", {})
+    # return JsonResponse({"data":lesson_obj.id})
+    template_name = "courses/lessons-coming-soon.html"
+    context = {
+        "object" : lesson_obj
+    }
+    if not lesson_obj.is_coming_soon and lesson_obj.has_video:
+        """
+        Lesson is published
+        video is available
+        go forward
+        """
+        template_name = "courses/lessons.html"
+        video_embed_html = helpers.get_cloudinary_video_object(
+            lesson_obj,
+            field_name='video',
+            as_html=True,
+            width=1250
+        )
+        context['video_embed'] = video_embed_html
+
+    return render(request,template_name, context)

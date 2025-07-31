@@ -184,3 +184,8 @@ class Lessons(models.Model):
     @property
     def is_coming_soon(self):
         return self.status == PublishStatus.COMING_SOON
+
+
+    @property
+    def has_video(self):
+        return self.video is not None
