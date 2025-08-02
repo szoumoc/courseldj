@@ -1,6 +1,6 @@
 from django import forms
 
-from . import css
+from . import css, services
 from .models import Email, EmailVerficationEvent
 
 
@@ -22,9 +22,8 @@ class EmailForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        qs = Email.objects.filter(email=email,
-                                  active = False)
-        if qs.exists():
+        verified = services.verify_email(email)
+        if verified:
             raise forms.ValidationError("Inactive email!")
         
         return email

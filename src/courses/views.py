@@ -4,6 +4,7 @@ from . import services
 import helpers
 
 
+
 def course_list_view(request):
     queryset = services.get_publish_courses()
     # return JsonResponse({"data":[x.path for x in queryset]})
