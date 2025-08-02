@@ -24,4 +24,5 @@ def home_view(request, *args, **kwargs):
         context['message'] = "Success! check you email for verification."
     else:
         print(form.errors)
+    print('email_id', request.session.get('email_id'))
     return render(request, template_name, context) 
