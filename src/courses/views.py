@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect 
 from django.http import Http404, JsonResponse
 from . import services
 import helpers
@@ -36,6 +36,12 @@ def lesson_detail_view(request, lesson_id=None,course_id=None,*args, **kwargs):
     
     if lesson_obj is None:
         raise Http404
+    email_id_exists = request.session.get('email_id')
+    if lesson_obj.requires_email and not email_id_exists:
+        request.session['next_url'] = request.build_absolute_uri()
+        return render(request, 'courses/email-required.html', {})
+    
+    
     # return JsonResponse({"data":lesson_obj.id})
     template_name = "courses/lessons-coming-soon.html"
     context = {

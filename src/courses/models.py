@@ -182,6 +182,13 @@ class Lessons(models.Model):
         return f"{course_path}/lessons/{self.public_id}"
     
     @property
+    def requires_email(self):
+        return self.course.access == AccessRequirement.EMAIL_REQUIRED
+    
+    
+    
+    
+    @property
     def is_coming_soon(self):
         return self.status == PublishStatus.COMING_SOON
 
