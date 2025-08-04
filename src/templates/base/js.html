@@ -1,7 +1,9 @@
-
+{% load django_htmx %}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cloudinary-video-player@3.0.2/dist/cld-video-player.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdn.jsdelivr.net/npm/cloudinary-video-player@3.0.2/dist/cld-video-player.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
+{% django_htmx_script %}
 
 <script defer>
 
