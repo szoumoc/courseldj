@@ -38,7 +38,8 @@ def lesson_detail_view(request, lesson_id=None,course_id=None,*args, **kwargs):
         raise Http404
     email_id_exists = request.session.get('email_id')
     if lesson_obj.requires_email and not email_id_exists:
-        request.session['next_url'] = request.build_absolute_uri()
+        print(request.path)
+        request.session['next_url'] = request.path
         return render(request, 'courses/email-required.html', {})
     
     
